@@ -14,7 +14,7 @@ const ListUsers = () => {
 
     useEffect(() => {
       fetchUser();
-    });
+    },[]);
     return (
       <>
 
@@ -48,8 +48,8 @@ const ListUsers = () => {
                     <td>{users.email}</td>
                     <td>{users.mobile}</td>
                     <td>
-                        <a href="#" className="btn btn-primary">Edit</a>
-                        <a href="#" className="btn btn-danger ms-2">Delete</a>
+                        <Link to={`/users/edit/${users.id}`} className="btn btn-primary">Edit</Link>
+                        <Link to="#" className="btn btn-danger ms-2">Delete</Link>
                     </td>
                   </tr>
                   )

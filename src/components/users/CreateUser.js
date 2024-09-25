@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 import Header from "../common/Header";
 
+
 const CreateUser = () => {
 
   const {register,handleSubmit,watch, formState: { errors },} = useForm();
