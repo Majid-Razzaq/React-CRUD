@@ -1,21 +1,28 @@
 import { useForm } from "react-hook-form"
-
+import { useNavigate } from "react-router-dom";
+import Header from "../common/Header";
 
 const CreateUser = () => {
 
   const {register,handleSubmit,watch, formState: { errors },} = useForm();
-  const formSubmit = (data) => {
-    console.log(data);
-    
+  const navigate = useNavigate();
+
+  const formSubmit = async (data) => {
+
+    const res = await fetch('http://localhost:3000/users',{
+        method:'POST',
+        headers:{
+          'Content-type' : 'application/json',
+        },
+        body: JSON.stringify(data)
+    });
+
+    navigate('/users');
   }
 
   return (
     <>
-      <div className="bg-dark shadow">
-        <div className="container">
-            <h2 className="h1 text-white py-3">React CRUD</h2>
-        </div>
-      </div>
+      <Header/>
 
       <div className="container">
         <div className="card border-0 shadow p-3 my-5">
@@ -28,8 +35,16 @@ const CreateUser = () => {
 
               <div className="mb-3">
                 <label>Email:</label>
-                <input {...register('email',{required: true})} type="text" className={`form-control ${errors.email && 'is-invalid'}`} placeholder="Enter Email" />
-                {errors.email && <p className="invalid-feedback">This field is required</p>}
+                <input {...register('email',
+                  {
+                    required: true,
+                    pattern:{
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Please enter a valid email address',
+                    }
+
+                  })} type="text" className={`form-control ${errors.email && 'is-invalid'}`} placeholder="Enter Email" />
+                {errors.email && <p className="invalid-feedback">{errors.email?.message}</p>}
               </div>
 
               <div className="mb-3">
