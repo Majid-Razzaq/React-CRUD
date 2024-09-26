@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../common/Header";
+import { toast } from "react-toastify";
 
 
 const CreateUser = () => {
@@ -18,6 +19,8 @@ const CreateUser = () => {
         body: JSON.stringify(data)
     });
 
+    toast("User added successfully.");
+
     navigate('/users');
   }
 
@@ -26,7 +29,16 @@ const CreateUser = () => {
       <Header/>
 
       <div className="container">
-        <div className="card border-0 shadow p-3 my-5">
+      <div className="row py-4">
+            <div className="col-md-6">
+              <h3>Users / Create</h3>
+            </div>
+            <div className="col-md-6 text-end">
+              <Link to="/users" className="btn btn-primary">Back</Link>
+            </div>
+        </div> 
+
+        <div className="card border-0 shadow p-3">
           <form onSubmit={handleSubmit(formSubmit)}>
               <div className="mb-3">
                 <label>Name:</label>
